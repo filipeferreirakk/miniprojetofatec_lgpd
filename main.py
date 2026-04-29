@@ -40,6 +40,11 @@ def LGPD(row):
         usuario_mascarado = usuario[0] + '*' * (len(usuario) - 1)
         linha_modificada[3] = f"{usuario_mascarado}@{dominio}"
 
+    tel_original = linha_modificada[4]
+    if tel_original:
+        apenas_numeros = ''.join(filter(str.isdigit, tel_original))
+        linha_modificada[4] = apenas_numeros[-4:]
+
     return tuple(linha_modificada)
 
 def processar_usuarios():
