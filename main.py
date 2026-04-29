@@ -78,5 +78,16 @@ def atividade_2(usuarios_anonimizados):
             writer.writerows(registros)
     print(f"Atividade 2 concluída: {len(por_ano)} arquivos gerados.")
 
+@medir_tempo
+def atividade_3():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT nome, cpf FROM usuarios;"))
+        
+        with open('todos.csv', 'w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(['nome', 'cpf'])
+            writer.writerows(result)
+    print("Atividade 3 concluída: arquivo todos.csv gerado.")
+
 if __name__ == "__main__":
     processar_usuarios()
