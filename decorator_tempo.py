@@ -2,7 +2,14 @@ import time
 import functools
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("execucao.log"),
+        logging.StreamHandler()
+    ]
+)
 
 def medir_tempo(func):
     @functools.wraps(func)
