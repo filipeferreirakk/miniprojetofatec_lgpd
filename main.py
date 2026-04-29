@@ -12,15 +12,6 @@ PORT = '5432'
 connection_string = f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
 engine = create_engine(connection_string)
 
-def testar_conexao():
-    try:
-        with engine.connect() as conn:
-            print("Conexão estabelecida com sucesso!")
-    except Exception as e:
-        print(f"Erro ao conectar: {e}")
-
-if __name__ == "__main__":
-    testar_conexao()
 
 def LGPD(row):
     linha_modificada = list(row)
@@ -85,6 +76,7 @@ def main():
     print("--- Iniciando Processamento LGPD ---")
     
     with engine.connect() as conn:
+        print("Conexão estabelecida com sucesso!") # Teste de conexão movido para cá
         result = conn.execute(text("SELECT * FROM usuarios;"))
         usuarios_brutos = result.fetchall()
     
