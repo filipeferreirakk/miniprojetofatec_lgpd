@@ -77,6 +77,7 @@ def atividade_2(usuarios_anonimizados):
             writer.writerow(['id', 'nome', 'cpf', 'email', 'telefone', 'data_nascimento', 'created_on', 'updated_on'])
             writer.writerows(registros)
     print(f"Atividade 2 concluída: {len(por_ano)} arquivos gerados.")
+    
 
 @medir_tempo
 def atividade_3():
