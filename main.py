@@ -34,7 +34,7 @@ def LGPD(row):
 
     cpf_original = linha_modificada[2]
     if cpf_original:
-        linha_modificada[2] = f"{cpf_original[:3]}.***.***-**"
+        linha_modificada[2] = f"{cpf_original[:3]}.*** ***-**"
 
     email_original = linha_modificada[3]
     if email_original and '@' in email_original:
