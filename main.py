@@ -1,5 +1,7 @@
 from sqlalchemy import create_engine, text
 from datetime import datetime
+import csv
+from decorator_tempo import medir_tempo
 
 HOST = '200.19.224.150'
 USER = 'alunos'
@@ -57,6 +59,24 @@ def processar_usuarios():
             print(row_anonimizada)
             
     return users
+
+@medir_tempo
+def atividade_2(usuarios_anonimizados):
+    por_ano = {}
+    
+    for user in usuarios_anonimizados:
+        ano = user[5].year
+        if ano not in por_ano:
+            por_ano[ano] = []
+        por_ano[ano].append(user)
+    
+    for ano, registros in por_ano.items():
+        filename = f"{ano}.csv"
+        with open(filename, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(['id', 'nome', 'cpf', 'email', 'telefone', 'data_nascimento', 'created_on', 'updated_on'])
+            writer.writerows(registros)
+    print(f"Atividade 2 concluída: {len(por_ano)} arquivos gerados.")
 
 if __name__ == "__main__":
     processar_usuarios()
