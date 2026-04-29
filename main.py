@@ -77,7 +77,7 @@ def atividade_2(usuarios_anonimizados):
             writer.writerow(['id', 'nome', 'cpf', 'email', 'telefone', 'data_nascimento', 'created_on', 'updated_on'])
             writer.writerows(registros)
     print(f"Atividade 2 concluída: {len(por_ano)} arquivos gerados.")
-    
+
 
 @medir_tempo
 def atividade_3():
@@ -90,5 +90,26 @@ def atividade_3():
             writer.writerows(result)
     print("Atividade 3 concluída: arquivo todos.csv gerado.")
 
+
+def main():
+    print("--- Iniciando Processamento LGPD ---")
+    
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM usuarios;"))
+        usuarios_brutos = result.fetchall()
+    
+    print(f"Total de registros recuperados: {len(usuarios_brutos)}")
+    
+    usuarios_anonimizados = [LGPD(row) for row in usuarios_brutos]
+    print("Anonimização concluída.")
+
+    print("\nExecutando Atividade 2...")
+    atividade_2(usuarios_anonimizados)
+
+    print("\nExecutando Atividade 3...")
+    atividade_3()
+
+    print("\n--- Processamento Finalizado com Sucesso ---")
+
 if __name__ == "__main__":
-    processar_usuarios()
+    main()
