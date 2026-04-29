@@ -49,16 +49,6 @@ def LGPD(row):
 
     return tuple(linha_modificada)
 
-def processar_usuarios():
-    users = []
-    with engine.connect() as conn:
-        result = conn.execute(text("SELECT * FROM usuarios LIMIT 10;"))
-        for row in result:
-            row_anonimizada = LGPD(row)
-            users.append(row_anonimizada)
-            print(row_anonimizada)
-            
-    return users
 
 @medir_tempo
 def atividade_2(usuarios_anonimizados):
