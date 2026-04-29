@@ -19,3 +19,23 @@ def testar_conexao():
 
 if __name__ == "__main__":
     testar_conexao()
+
+def LGPD(row):
+    linha_modificada = list(row)
+    
+    
+    return tuple(linha_modificada)
+
+def processar_usuarios():
+    users = []
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM usuarios LIMIT 10;"))
+        for row in result:
+            row_anonimizada = LGPD(row)
+            users.append(row_anonimizada)
+            print(row_anonimizada)
+            
+    return users
+
+if __name__ == "__main__":
+    processar_usuarios()
