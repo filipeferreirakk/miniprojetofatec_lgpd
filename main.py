@@ -23,7 +23,19 @@ if __name__ == "__main__":
 def LGPD(row):
     linha_modificada = list(row)
     
+    nome_original = linha_modificada[1]
     
+    if nome_original:
+        partes_nome = nome_original.split(' ', 1)
+        primeiro_nome = partes_nome[0]
+        
+        primeiro_nome_mascarado = primeiro_nome[0] + '*' * (len(primeiro_nome) - 1)
+        
+        if len(partes_nome) > 1:
+            linha_modificada[1] = f"{primeiro_nome_mascarado} {partes_nome[1]}"
+        else:
+            linha_modificada[1] = primeiro_nome_mascarado
+
     return tuple(linha_modificada)
 
 def processar_usuarios():
