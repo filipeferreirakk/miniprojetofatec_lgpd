@@ -23,18 +23,22 @@ if __name__ == "__main__":
 def LGPD(row):
     linha_modificada = list(row)
     
-    nome_original = linha_modificada[1]
-    
-    if nome_original:
-        partes_nome = nome_original.split(' ', 1)
-        primeiro_nome = partes_nome[0]
-        
-        primeiro_nome_mascarado = primeiro_nome[0] + '*' * (len(primeiro_nome) - 1)
-        
-        if len(partes_nome) > 1:
-            linha_modificada[1] = f"{primeiro_nome_mascarado} {partes_nome[1]}"
-        else:
-            linha_modificada[1] = primeiro_nome_mascarado
+    nome = linha_modificada[1]
+    if nome:
+        partes = nome.split(' ', 1)
+        primeiro = partes[0]
+        p_mascarado = primeiro[0] + '*' * (len(primeiro) - 1)
+        linha_modificada[1] = f"{p_mascarado} {partes[1]}" if len(partes) > 1 else p_mascarado
+
+    cpf_original = linha_modificada[2]
+    if cpf_original:
+        linha_modificada[2] = f"{cpf_original[:3]}.***.***-**"
+
+    email_original = linha_modificada[3]
+    if email_original and '@' in email_original:
+        usuario, dominio = email_original.split('@')
+        usuario_mascarado = usuario[0] + '*' * (len(usuario) - 1)
+        linha_modificada[3] = f"{usuario_mascarado}@{dominio}"
 
     return tuple(linha_modificada)
 
